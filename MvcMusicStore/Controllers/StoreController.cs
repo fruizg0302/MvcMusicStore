@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using MvcMusicStore.ViewModels;
 
 namespace MvcMusicStore.Controllers
 {
@@ -11,21 +12,15 @@ namespace MvcMusicStore.Controllers
         //
         // GET: /Store/
 
-        public string Index()
+        public ActionResult Index()
         {
-            return "Hello from Store.Index()";
-        }
+            var genres = new List<string> { "Rock", "Jazz", "Country", "Pop", "Disco" };
 
-        public string Browse(string genre)
-        {
-            string message = HttpUtility.HtmlEncode("Store.Browse, Genre= " + genre);
-            return message;
-        }
-
-        public string Details(string id)
-        {
-            string message = "Store.Details, ID = " + id;
-            return message;
+            var viewModel = new StoreIndexViewModel{
+                NumberOfGenres = genres.Count(),
+                Genres = genres
+            };
+            return this.View(viewModel);
         }
     }
 }
